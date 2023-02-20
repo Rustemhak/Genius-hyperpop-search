@@ -37,16 +37,15 @@ def get_lemmas(tokens):
         if re.match(r'[А-Яа-яёЁ]', token):
             lemma = pymorphy2_analyzer.parse(token)[0].normal_form
             lemmas[lemma].append(token)
-
     return lemmas
 
 
-if __name__ == '__main__':
+def get_every_file():
     for root, dirs, files in os.walk(DIRECTORY):
         for file in files:
             if file.lower().endswith('.txt'):
                 path_file = os.path.join(root, file)
-                with open(path_file, encoding="utf=8") as f:
+                with open(path_file, encoding="utf-8") as f:
                     html_text = f.read()
                 soup = BeautifulSoup(html_text, "html.parser")
                 text = ' '.join(soup.stripped_strings)
@@ -64,3 +63,35 @@ if __name__ == '__main__':
                         for word in v:
                             file_result.write(word + " ")
                         file_result.write("\n")
+
+
+def get_common():
+    tokens = []
+    for root, dirs, files in os.walk(DIRECTORY):
+        for file in files:
+            if file.lower().endswith('.txt'):
+                path_file = os.path.join(root, file)
+                with open(path_file, encoding="utf-8") as f:
+                    html_text = f.read()
+                soup = BeautifulSoup(html_text, "html.parser")
+                text = ' '.join(soup.stripped_strings)
+                tokens += get_tokens(text)
+    tokens = list(set(tokens))
+    tokens_string = '\n'.join(tokens)
+    path_result = f"Выкачка_очищенная_общая/tokens.txt"
+    os.makedirs(os.path.dirname(path_result), exist_ok=True)
+    with open(path_result, "w", encoding="utf-8") as file_result:
+        file_result.write(tokens_string)
+    lemmas_dict = get_lemmas(tokens)
+    path_result = f"Выкачка_очищенная_общая/lemmas.txt"
+    with open(path_result, "w", encoding="utf-8") as file_result:
+        for k, v in lemmas_dict.items():
+            file_result.write(k + ": ")
+            for word in v:
+                file_result.write(word + " ")
+            file_result.write("\n")
+
+
+if __name__ == '__main__':
+    # get_every_file
+    get_common()

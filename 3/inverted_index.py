@@ -1,6 +1,6 @@
 from collections import defaultdict
 import os
-from preprocessing import get_lemmas, get_tokens
+# from preprocessing import get_lemmas, get_tokens
 
 DIRECTORY = 'Выкачка_очищенная'
 

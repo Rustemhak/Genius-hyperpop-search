@@ -8,7 +8,6 @@ from nltk.corpus import stopwords
 from pymorphy2 import MorphAnalyzer
 from collections import defaultdict
 
-sw = stopwords.words('russian') + stopwords.words('english')
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('snowball_data')
@@ -18,6 +17,7 @@ nltk.download('stopwords')
 nltk.download('nonbreaking_prefixes')
 nltk.download('wordnet')
 
+sw = stopwords.words('russian') + stopwords.words('english')
 DIRECTORY = "Выкачка"
 
 
@@ -104,4 +104,4 @@ def get_common():
 
 if __name__ == '__main__':
     get_every_file()
-    #get_common()
+    # get_common()

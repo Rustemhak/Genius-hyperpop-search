@@ -4,7 +4,6 @@ import re
 from bs4 import BeautifulSoup
 import nltk
 from nltk.tokenize import RegexpTokenizer
-from nltk.corpus import stopwords
 from pymorphy2 import MorphAnalyzer
 from collections import defaultdict
 
@@ -13,9 +12,10 @@ nltk.download('punkt')
 nltk.download('snowball_data')
 nltk.download('perluniprops')
 nltk.download('universal_tagset')
-nltk.download('stopwords')
 nltk.download('nonbreaking_prefixes')
 nltk.download('wordnet')
+from nltk.corpus import stopwords
+
 
 sw = stopwords.words('russian') + stopwords.words('english')
 DIRECTORY = "Выкачка"
